@@ -1,0 +1,27 @@
+{
+  "name": "Injecta",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Injecting stuff",
+  "homepage_url": "http://danharper.me",
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
+  "permissions": [
+    "https://imdb.com/*",
+    "http://imdb.com/*"
+  ],
+  "content_scripts": [
+    {
+    "matches": [
+        "http://www.imdb.com/*",
+        "https://imdb.com/*"
+    ],
+    "js": ["background.js"],
+    "run_at": "document_end"
+    }
+  ]
+}
