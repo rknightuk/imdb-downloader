@@ -1,9 +1,9 @@
 {
-  "name": "Injecta",
+  "name": "IMDB Downloader",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Injecting stuff",
-  "homepage_url": "http://danharper.me",
+  "description": "IMDB Download Links",
+  "homepage_url": "http://robblewis.me",
   "permissions": [
     "https://imdb.com/*",
     "http://imdb.com/*"
@@ -11,9 +11,10 @@
   "content_scripts": [
     {
     "matches": [
-        "http://www.imdb.com/*",
-        "https://imdb.com/*"
+        "http://www.imdb.com/title/*",
+        "https://imdb.com/title/*"
     ],
+    "css": ["imdbdownload.css"],
     "js": ["background.js"],
     "run_at": "document_end"
     }

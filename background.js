@@ -1,37 +1,35 @@
-// just place a div at top right
-var div = document.createElement('div');
-div.id = 'myDiv';
-div.style.position = 'fixed';
-div.style.top = 0;
-div.style.right = 0;
-div.style.padding = '5px';
-div.style.background = '#fff';
-div.style.border = '1px solid black';
-document.body.appendChild(div);
+var pageTitle = document.title;
+if (pageTitle.indexOf("TV Series") != -1) {
+	console.log("This is a TV Show");
+}
+else {
+	// Get IMDB movie id
+	var id = window.location.pathname.split('/');
+	id = id[2];
 
-// Get movie title
-var title = document.getElementsByTagName('h1');
-title = title[0].outerText;
-title = title.replace('(', '');
-title = title.replace(')', '');
-
-// Get download links
-var xmlhttp;
-xmlhttp=new XMLHttpRequest();
-xmlhttp.onreadystatechange=function()
-{
-	if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	// Get download links
+	var xmlhttp;
+	xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
 	{
-		var buttons = document.getElementById('overview-bottom');
-		buttons.innerHTML += '<div style="clear:both;"></div><br>';
-		var movies = JSON.parse(xmlhttp.responseText);
-		movies = movies.MovieList;
-		for (var i=0;i<movies.length;i++)
-		{ 
-			console.log(movies[i]);
-			buttons.innerHTML += '<p><a href="'+movies[i].TorrentMagnetUrl+'">'+movies[i].Quality+'</a></p>';
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var buttons = document.getElementById('overview-bottom');
+			buttons.innerHTML += '<div style="clear:both;"></div><br>';
+			var movies = JSON.parse(xmlhttp.responseText);
+			movies = movies.MovieList;
+
+			if ( movies === undefined) {
+				buttons.innerHTML += '<p>No downloads available</p>';
+			}
+			else {
+				for (var i=0;i<movies.length;i++)
+				{
+					buttons.innerHTML += '<a class="imdb-download" href="'+movies[i].TorrentMagnetUrl+'">'+movies[i].Quality+'</a>';
+				}
+			}
 		}
-	}
-};
-xmlhttp.open('GET','http://yify.unlocktorrent.com/api/list.json?keywords='+title, true);
-xmlhttp.send();
+	};
+	xmlhttp.open('GET','http://yify.unlocktorrent.com/api/list.json?keywords='+id, true);
+	xmlhttp.send();
+}
