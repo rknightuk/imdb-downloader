@@ -8,7 +8,8 @@ chrome.storage.sync.get({
 	filePref: 'magnet',
 	quality_1080: true, 
 	quality_720: true,
-	quality_3d: true
+	quality_3d: true,
+	proxy: true
 }, function(items) {
 	filePref = items.filePref;
 	if (items.quality_1080) qualities.push('1080p');
@@ -24,13 +25,14 @@ chrome.storage.sync.get({
 	else {
 		// Get IMDB movie id
 		var id = window.location.pathname.split('/');
+		var url = items.proxy ? 'http://yify.unlocktorrent.com' : 'http://yts.re';
 		id = id[2];
 
 		if (id === undefined) {
 			showMessage('No movie ID found');
 		}
 		else {
-			getMovies(id);
+			getMovies(id, url);
 		}
 	}
 });
@@ -39,7 +41,7 @@ function showMessage(message) {
 	buttons.innerHTML += '<p>'+message+'</p>';
 }
 
-function getMovies(id) {
+function getMovies(id, url) {
 	// Get download links
 	var xmlhttp;
 	xmlhttp=new XMLHttpRequest();
@@ -73,6 +75,6 @@ function getMovies(id) {
 			}
 		}
 	};
-	xmlhttp.open('GET','http://yify.unlocktorrent.com/api/list.json?keywords='+id, true);
+	xmlhttp.open('GET', url+'/api/list.json?keywords='+id, true);
 	xmlhttp.send();
 }

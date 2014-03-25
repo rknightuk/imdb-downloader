@@ -12,7 +12,8 @@ function save_options() {
 		filePref: filePref,
 		quality_1080: document.getElementById('quality_1080').checked,
 		quality_720: document.getElementById('quality_720').checked,
-		quality_3d: document.getElementById('quality_3d').checked
+		quality_3d: document.getElementById('quality_3d').checked,
+		proxy: document.getElementById('proxy').checked
 	}, function() {
 		var status = document.getElementById('status');
 		status.textContent = 'Options saved.';
@@ -27,12 +28,14 @@ function restore_options() {
 		filePref: 'TorrentMagnetUrl',
 		quality_3d: true,
 		quality_1080: true,
-		quality_720: true
+		quality_720: true,
+		proxy: true
 	}, function(items) {
 		document.getElementById(items.filePref).checked = true;
 		document.getElementById('quality_1080').checked = items.quality_1080;
 		document.getElementById('quality_720').checked = items.quality_720;
 		document.getElementById('quality_3d').checked = items.quality_3d;
+		document.getElementById('proxy').checked = items.proxy;
 	});
 }
 
