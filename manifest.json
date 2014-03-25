@@ -3,7 +3,7 @@
 	"version": "1.0",
 	"manifest_version": 2,
 	"description": "Show download links on IMDB movie pages",
-	"homepage_url": "http://robblewis.me/projects/imdb-downloader-chrome",
+	"homepage_url": "http://robblewis.me/projects/movie-downloader-chrome",
 	"browser_action": {
 		"default_icon": {
 			"19": "icons/icon128.png"
