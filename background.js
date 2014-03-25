@@ -1,6 +1,6 @@
 var pageTitle = document.title; // Check title, if TV show ignore
 var buttons = document.getElementById('overview-bottom');
-buttons.innerHTML += '<div style="clear:both;"></div><br>';
+buttons.innerHTML += '<p>Fetching download links...</p>';
 
 // Get user settings
 var filePref, qualities = [];
