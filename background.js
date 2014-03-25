@@ -68,9 +68,9 @@ function getMovies(id, url) {
 						count++;
 						buttons.innerHTML += '<a class="imdb-download" href="'+movie+'">'+movies[i].Quality+'</a>';
 					}
-					if (count === 0) {
-						showMessage('No downloads available, adjust your IMDB downloader for better results');
-					}
+				}
+				if (count === 0) {
+					showMessage('No downloads available, adjust your IMDB downloader for better results');
 				}
 			}
 		}
