@@ -1,22 +1,27 @@
 {
-  "name": "IMDB Downloader",
-  "version": "0.0.1",
-  "manifest_version": 2,
-  "description": "IMDB Download Links",
-  "homepage_url": "http://robblewis.me",
-  "permissions": [
-    "https://imdb.com/*",
-    "http://imdb.com/*"
-  ],
-  "content_scripts": [
-    {
-    "matches": [
-        "http://www.imdb.com/title/*",
-        "https://imdb.com/title/*"
-    ],
-    "css": ["imdbdownload.css"],
-    "js": ["background.js"],
-    "run_at": "document_end"
-    }
-  ]
+	"name": "IMDB Downloader",
+	"version": "0.0.1",
+	"manifest_version": 2,
+	"description": "Show download links on IMDB movie pages",
+	"homepage_url": "http://robblewis.me/projects/imdb-downloader-chrome",
+	"icons": {
+		"16": "icons/icon16.png",
+		"48": "icons/icon48.png",
+		"128": "icons/icon128.png"
+	},
+	"options_page": "options/options.html",
+	"permissions": [
+		"https://imdb.com/title/*",
+		"http://imdb.com/title/*",
+		"storage"
+	],
+	"content_scripts": [{
+		"matches": [
+			"http://www.imdb.com/title/*",
+			"https://imdb.com/title/*"
+		],
+		"css": ["imdbdownload.css"],
+		"js": ["background.js"],
+		"run_at": "document_end"
+	}]
 }

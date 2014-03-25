@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+	
+		<title>IMDB Downloader Options</title>
+
+		<style>
+			body { color: #202020; }
+			#wrapper {
+				max-width: 800px;
+				margin: 0 auto;
+				font-family: Helvetica, Ariel, sans-serif;
+			}
+
+			h1 { text-align: center; }
+			h2 { border-bottom: 1px solid #202020; }
+		</style>
+		
+	</head>
+	
+	<body>
+		
+		<div id="wrapper">
+
+			<h1>IMDB Downloader options</h1>
+				
+			<h2>Download links</h2>
+
+			<strong>Prefer:&nbsp;</strong>
+			<input type="radio" name="download" id="TorrentMagnetUrl" value="TorrentMagnetUrl"> Magnet links
+			<input type="radio" name="download" id="TorrentUrl" value="TorrentUrl"> Torrent files
+
+			<button id="save">Save</button>
+
+			<div id="status"></div>
+		</div>
+
+		<script src="options.js"></script>
+
+	</body>
+	
+</html>

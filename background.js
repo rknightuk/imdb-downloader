@@ -1,3 +1,11 @@
+var filePref;
+chrome.storage.sync.get({
+	filePref: 'magnet' // default to magnet links
+}, function(items) {
+	filePref = items.filePref;
+});
+
+// Check title, if TV show ignore
 var pageTitle = document.title;
 if (pageTitle.indexOf("TV Series") != -1) {
 	console.log("This is a TV Show");
@@ -25,7 +33,12 @@ else {
 			else {
 				for (var i=0;i<movies.length;i++)
 				{
-					buttons.innerHTML += '<a class="imdb-download" href="'+movies[i].TorrentMagnetUrl+'">'+movies[i].Quality+'</a>';
+					var movie = movies[i].TorrentMagnetUrl;
+					if (filePref != "TorrentMagnetUrl") {
+						movie = movies[i].TorrentUrl;
+						movie = movie.replace('http://yts.re', 'http://yify.unlocktorrent.com');
+					}
+					buttons.innerHTML += '<a class="imdb-download" href="'+movie+'">'+movies[i].Quality+'</a>';
 				}
 			}
 		}
