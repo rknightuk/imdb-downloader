@@ -6,15 +6,28 @@
 		<title>IMDB Downloader Options</title>
 
 		<style>
-			body { color: #202020; }
-			#wrapper {
-				max-width: 800px;
-				margin: 0 auto;
-				font-family: Helvetica, Ariel, sans-serif;
+			body {
+				color: #202020;
+				font-size: 0.8em;
+				font-family: Helvetica,arial,sans-serif;
 			}
 
-			h1 { text-align: center; }
-			h2 { border-bottom: 1px solid #202020; }
+			#wrapper {
+				min-width: 250px;
+				max-width: 600px;
+				margin: 0 auto;
+				padding: 0 5px;
+			}
+
+			.option-wrap {
+				border-bottom: 2px solid #eee;
+				margin-bottom: 5px;
+			}
+
+			#status {
+				color: #00fc4c;
+				font-weight: bold;
+			}
 		</style>
 		
 	</head>
@@ -23,17 +36,33 @@
 		
 		<div id="wrapper">
 
-			<h1>IMDB Downloader options</h1>
-				
-			<h2>Download links</h2>
+			<p style="text-align: center;"><strong>IMDB Downloader options</strong></p>
+			
+			<div class="option-wrap">	
+				<p><strong>Download links</strong></p>
 
-			<strong>Prefer:&nbsp;</strong>
-			<input type="radio" name="download" id="TorrentMagnetUrl" value="TorrentMagnetUrl"> Magnet links
-			<input type="radio" name="download" id="TorrentUrl" value="TorrentUrl"> Torrent files
+				<p>
+					<input type="radio" name="download" id="TorrentMagnetUrl" value="TorrentMagnetUrl"> Magnet links
+					<input type="radio" name="download" id="TorrentUrl" value="TorrentUrl"> Torrent files
+				</p>
+			</div>
 
-			<button id="save">Save</button>
+			<div class="option-wrap">	
 
-			<div id="status"></div>
+				<p><strong>Quality</strong></p>
+
+				<p>
+					<input type="checkbox" name="quality_1080" id="quality_1080"> 1080p
+					<input type="checkbox" name="quality_720" id="quality_720"> 720p
+					<input type="checkbox" name="quality_3d" id="quality_3d"> 3D
+				</p>
+
+			</div>
+
+			<p>
+				<button id="save">Save Options</button>
+				<span id="status"></span>
+			</p>
 		</div>
 
 		<script src="options.js"></script>

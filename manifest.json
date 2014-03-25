@@ -9,6 +9,12 @@
 		"48": "icons/icon48.png",
 		"128": "icons/icon128.png"
 	},
+	"browser_action": {
+		"default_icon": {
+			"19": "icons/icon128.png"
+		},
+		"default_popup": "options/options.html"
+	},
 	"options_page": "options/options.html",
 	"permissions": [
 		"https://imdb.com/title/*",
