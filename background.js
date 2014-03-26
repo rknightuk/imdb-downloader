@@ -1,6 +1,6 @@
 var pageTitle = document.title; // Check title, if TV show ignore
 var buttons = document.getElementById('overview-bottom');
-buttons.innerHTML += '<p>Fetching download links...</p>';
+buttons.innerHTML += '<div style="clear:both;" id="fetching-download">Fetching download links...</div><br>';
 
 // Get user settings
 var filePref, qualities = [];
@@ -49,6 +49,7 @@ function getMovies(id, url) {
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
+			document.getElementById('fetching-download').innerHTML = '';
 			var movies = JSON.parse(xmlhttp.responseText);
 			movies = movies.MovieList;
 
