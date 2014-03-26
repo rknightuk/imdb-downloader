@@ -5,7 +5,7 @@ buttons.innerHTML += '<div style="clear:both;"></div><br>';
 // Get user settings
 var filePref, qualities = [];
 chrome.storage.sync.get({
-	filePref: 'magnet',
+	filePref: 'TorrentMagnetUrl',
 	quality_1080: true, 
 	quality_720: true,
 	quality_3d: true,
