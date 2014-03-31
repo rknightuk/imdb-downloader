@@ -1,0 +1,1 @@
+var url = $('a[href*="imdb.com/title/tt"]')
