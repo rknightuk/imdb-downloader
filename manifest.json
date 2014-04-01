@@ -16,7 +16,7 @@
 			"http://www.imdb.com/title/*",
 			"https://imdb.com/title/*"
 		],
-		"css": ["imdbdownload.css"],
+		"css": ["buttons.css"],
 		"js": ["background.js"],
 		"run_at": "document_end"
 	}],
