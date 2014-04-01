@@ -51,16 +51,27 @@ function getMovies(site, keyword, url, filePref, qualities) {
 			}
 			else {
 				var count = 0;
+				movies.sort(function(a, b){
+					var nameA=a.MovieTitleClean.toLowerCase(), nameB=b.MovieTitleClean.toLowerCase();
+					if (nameA < nameB) //sort string ascending
+						return -1; 
+					if (nameA > nameB)
+						return 1;
+					return 0; //default return value (no sorting)
+				});
+				
 				for (var i=0;i<movies.length;i++)
 				{
-					var movie = movies[i].TorrentMagnetUrl;
+					var movie = movies[i].TorrentMagnetUrl,
+						title = movies[i].MovieTitleClean,
+						quality = movies[i].Quality;
 					if (filePref != "TorrentMagnetUrl") {
 						movie = movies[i].TorrentUrl;
 						movie = movie.replace('http://yts.re', 'http://yify.unlocktorrent.com');
 					}
 					if (qualities.indexOf(movies[i].Quality) != -1) {
 						count++;
-						buttons.innerHTML += '<a class="'+site+'-download" href="'+movie+'">'+movies[i].Quality+'</a>';
+						buttons.innerHTML += '<a class="movie-download-link" href="'+movie+'">'+title+' - <strong>'+quality+'</strong></a><br>';
 					}
 				}
 				if (count === 0) {
