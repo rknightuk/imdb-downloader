@@ -17,7 +17,7 @@
 			"https://imdb.com/title/*"
 		],
 		"css": ["buttons.css"],
-		"js": ["background.js"],
+		"js": ["js/background.js"],
 		"run_at": "document_end"
 	}],
 	"icons": {
