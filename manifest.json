@@ -1,7 +1,7 @@
 {
 	"name": "Movie Downloader for IMDB",
 	"short_name": "Movie Downloader for IMDB",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"manifest_version": 2,
 	"description": "Show download links on IMDB movie pages",
 	"homepage_url": "http://robblewis.me/projects/movie-downloader-chrome",
