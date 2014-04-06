@@ -1,4 +1,4 @@
-function getPrefs(site) {
+function getPrefs() {
 	// Get user settings
 	var filePref;
 	chrome.storage.sync.get({
@@ -13,7 +13,7 @@ function getPrefs(site) {
 			showMessage('No movie found');
 		}
 		else {
-			getMovies(site, keyword, url, filePref);
+			getMovies(keyword, url, filePref);
 		}
 	});
 }
@@ -22,7 +22,7 @@ function showMessage(message) {
 	buttons.innerHTML += '<p>'+message+'</p>';
 }
 
-function getMovies(site, keyword, url, filePref) {
+function getMovies(keyword, url, filePref) {
 	// Get download links
 	var xmlhttp;
 	xmlhttp=new XMLHttpRequest();
@@ -55,28 +55,33 @@ function getMovies(site, keyword, url, filePref) {
 						return 1;
 					return 0; //default return value (no sorting)
 				});
+
+				appendDownloadLinks(movies, filePref);
 				
-				for (var i=0;i<movies.length;i++)
-				{
-					var movie = movies[i].TorrentMagnetUrl,
-						quality = movies[i].Quality,
-						imdbCode = movies[i].ImdbCode,
-						title = movies[i].MovieTitleClean;
-
-					if ( ! document.getElementById('downloader-'+imdbCode)) {
-						buttons.innerHTML += '<p class="movie-downloads"><span id="downloader-'+imdbCode+'">&nbsp;<a href="/title/'+imdbCode+'">'+title+'</a>&nbsp;</span></p>';
-					}
-
-					if (filePref != "TorrentMagnetUrl") {
-						movie = movies[i].TorrentUrl;
-						movie = movie.replace('http://yts.re', 'http://yify.unlocktorrent.com');
-					}
-					current = document.getElementById('downloader-'+imdbCode);
-					current.innerHTML = '<a href="'+movie+'">'+quality+'</a>' + current.innerHTML;
-				}
 			}
 		}
 	};
 	xmlhttp.open('GET', url+'/api/list.json?keywords='+keyword+'&limit=50', true);
 	xmlhttp.send();
+}
+
+function appendDownloadLinks(movies, filePref) {
+	for (var i=0;i<movies.length;i++)
+	{
+		var movie = movies[i].TorrentMagnetUrl,
+			quality = movies[i].Quality,
+			imdbCode = movies[i].ImdbCode,
+			title = movies[i].MovieTitleClean;
+
+		if ( ! document.getElementById('downloader-'+imdbCode)) {
+			buttons.innerHTML += '<p class="movie-downloads"><span id="downloader-'+imdbCode+'">&nbsp;<a href="/title/'+imdbCode+'">'+title+'</a>&nbsp;</span></p>';
+		}
+
+		if (filePref != "TorrentMagnetUrl") {
+			movie = movies[i].TorrentUrl;
+			movie = movie.replace('http://yts.re', 'http://yify.unlocktorrent.com');
+		}
+		current = document.getElementById('downloader-'+imdbCode);
+		current.innerHTML = '<a href="'+movie+'">'+quality+'</a>' + current.innerHTML;
+	}
 }

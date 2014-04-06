@@ -1,5 +1,4 @@
-var site = 'imdb',
-	pageTitle = document.title,
+var pageTitle = document.title,
 	buttons = document.getElementById('maindetails_center_top'),
 	downloadDiv = document.createElement('div');
 
@@ -12,7 +11,7 @@ if (pageTitle.indexOf("TV Series") != -1) {
 	showMessage("Movie Downloader doesn't currently support TV shows");
 }
 else {
-	getPrefs(site);
+	getPrefs();
 }
 
 function getMovieIdOrTitle() {
