@@ -30,7 +30,7 @@ function getMovies(site, keyword, url, filePref) {
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
-			document.getElementById('fetching-download').innerHTML = '';
+			document.getElementById('download-wrapper').innerHTML = '';
 			var movies = JSON.parse(xmlhttp.responseText);
 			movies = movies.MovieList;
 

@@ -1,8 +1,8 @@
 var site = 'imdb',
 	pageTitle = document.title,
-	buttons = document.getElementById('maindetails_center_top');
-buttons.innerHTML += '<div style="clear:both;overflow:auto;padding:10px;margin-bottom:20px;border:1px solid #dddddd" id="fetching-download">Fetching download links...</div><br>';
-buttons = document.getElementById('fetching-download');
+	buttons = document.getElementById('maindetails_center_bottom');
+buttons.innerHTML = '<div id="download-wrapper"><p>Fetching download links...</p></div><br>' + buttons.innerHTML;
+buttons = document.getElementById('download-wrapper');
 if (pageTitle.indexOf("TV Series") != -1) {
 	showMessage("Movie Downloader doesn't currently support TV shows");
 }
