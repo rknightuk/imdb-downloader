@@ -1,31 +1,19 @@
 function getPrefs(site) {
 	// Get user settings
-	var filePref, qualities = [];
+	var filePref;
 	chrome.storage.sync.get({
 		filePref: 'TorrentMagnetUrl',
-		quality_1080: true, 
-		quality_720: true,
-		quality_3d: true,
 		proxy: true
 	}, function(items) {
 		filePref = items.filePref;
-		if (items.quality_1080) qualities.push('1080p');
-		if (items.quality_720) qualities.push('720p');
-		if (items.quality_3d) qualities.push('3D');
+		var keyword = getMovieIdOrTitle();
+		var url = items.proxy ? 'http://yify.unlocktorrent.com' : 'http://yts.re';
 
-		if (qualities.length === 0) { // No qualities selected
-			showMessage('No download qualities selected, please review your Movie Downloader options');
+		if (keyword === undefined) {
+			showMessage('No movie found');
 		}
 		else {
-			var keyword = getMovieIdOrTitle();
-			var url = items.proxy ? 'http://yify.unlocktorrent.com' : 'http://yts.re';
-
-			if (keyword === undefined) {
-				showMessage('No movie found');
-			}
-			else {
-				getMovies(site, keyword, url, filePref, qualities);
-			}
+			getMovies(site, keyword, url, filePref);
 		}
 	});
 }
@@ -34,7 +22,7 @@ function showMessage(message) {
 	buttons.innerHTML += '<p>'+message+'</p>';
 }
 
-function getMovies(site, keyword, url, filePref, qualities) {
+function getMovies(site, keyword, url, filePref) {
 	// Get download links
 	var xmlhttp;
 	xmlhttp=new XMLHttpRequest();
