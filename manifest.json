@@ -19,7 +19,7 @@
 			"https://imdb.com/name/*"
 		],
 		"css": ["download.css"],
-		"js": ["js/background.js", "js/imdb.js"],
+		"js": ["js/background.js"],
 		"run_at" : "document_idle"
 	}],
 	"icons": {
