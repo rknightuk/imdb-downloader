@@ -1,4 +1,6 @@
-var pageTitle = document.title,
+var filePref,
+	url,
+	pageTitle = document.title,
 	buttons = document.getElementById('maindetails_center_top'),
 	downloadDiv = document.createElement('div');
 
@@ -22,20 +24,19 @@ function getMovieIdOrTitle() {
 
 function getPrefs() {
 	// Get user settings
-	var filePref;
 	chrome.storage.sync.get({
 		filePref: 'TorrentMagnetUrl',
 		proxy: true
 	}, function(items) {
 		filePref = items.filePref;
 		var keyword = getMovieIdOrTitle();
-		var url = items.proxy ? 'http://yify.unlocktorrent.com' : 'http://yts.re';
+		url = items.proxy ? 'http://yify.unlocktorrent.com' : 'http://yts.re';
 
 		if (keyword === undefined) {
 			showMessage('No movie found');
 		}
 		else {
-			getMovies(keyword, url, filePref);
+			getMovies(keyword);
 		}
 	});
 }
@@ -44,7 +45,7 @@ function showMessage(message) {
 	buttons.innerHTML += '<p>'+message+'</p>';
 }
 
-function getMovies(keyword, url, filePref) {
+function getMovies(keyword) {
 	// Get download links
 	var xmlhttp;
 	xmlhttp=new XMLHttpRequest();
@@ -78,7 +79,7 @@ function getMovies(keyword, url, filePref) {
 					return 0; //default return value (no sorting)
 				});
 
-				appendDownloadLinks(movies, filePref);
+				appendDownloadLinks(movies);
 				
 			}
 		}
@@ -87,7 +88,7 @@ function getMovies(keyword, url, filePref) {
 	xmlhttp.send();
 }
 
-function appendDownloadLinks(movies, filePref) {
+function appendDownloadLinks(movies) {
 	for (var i=0;i<movies.length;i++)
 	{
 		var movie = movies[i].TorrentMagnetUrl,
