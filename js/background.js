@@ -52,10 +52,18 @@ function getMovies(site, keyword, url, filePref, qualities) {
 			else {
 				var count = 0;
 				movies.sort(function(a, b){
-					var nameA=a.MovieTitleClean.toLowerCase(), nameB=b.MovieTitleClean.toLowerCase();
+					var nameA = a.MovieTitleClean.toLowerCase(),
+						nameB = b.MovieTitleClean.toLowerCase(),
+						qualityA = a.Quality == '3D' ? 'zz' : a.Quality.toLowerCase(),
+						qualityB = b.Quality == '3D' ? 'zz' : b.Quality.toLowerCase();
+
 					if (nameA < nameB) //sort string ascending
 						return -1; 
 					if (nameA > nameB)
+						return 1;
+					if (qualityA > qualityB)
+						return -1;
+					if (qualityA < qualityB)
 						return 1;
 					return 0; //default return value (no sorting)
 				});
@@ -68,21 +76,15 @@ function getMovies(site, keyword, url, filePref, qualities) {
 						title = movies[i].MovieTitleClean;
 
 					if ( ! document.getElementById('downloader-'+imdbCode)) {
-						buttons.innerHTML += '<p id="downloader-'+imdbCode+'">'+title+'</p>';
+						buttons.innerHTML += '<p class="movie-downloads"><span id="downloader-'+imdbCode+'">&nbsp;'+title+'&nbsp;</span></p>';
 					}
 
 					if (filePref != "TorrentMagnetUrl") {
 						movie = movies[i].TorrentUrl;
 						movie = movie.replace('http://yts.re', 'http://yify.unlocktorrent.com');
 					}
-					if (qualities.indexOf(movies[i].Quality) != -1) {
-						count++;
-						current = document.getElementById('downloader-'+imdbCode);
-						current.innerHTML += '&nbsp;<a href="'+movie+'">['+quality+']</a>';
-					}
-				}
-				if (count === 0) {
-					showMessage('No downloads available, adjust your Movie downloader options for better results');
+					current = document.getElementById('downloader-'+imdbCode);
+					current.innerHTML = '<a href="'+movie+'">'+quality+'</a>' + current.innerHTML;
 				}
 			}
 		}
