@@ -87,6 +87,6 @@ function getMovies(site, keyword, url, filePref, qualities) {
 			}
 		}
 	};
-	xmlhttp.open('GET', url+'/api/list.json?keywords='+keyword, true);
+	xmlhttp.open('GET', url+'/api/list.json?keywords='+keyword+'&limit=50', true);
 	xmlhttp.send();
 }
