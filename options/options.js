@@ -32,3 +32,8 @@ function restore_options() {
 
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
+
+var manifest = chrome.runtime.getManifest(),
+	versionEl = document.getElementById('version-info');
+
+versionEl.innerHTML = 'version ' + manifest.version + versionEl.innerHTML;
