@@ -64,7 +64,7 @@ function getMovies(site, keyword, url, filePref) {
 						title = movies[i].MovieTitleClean;
 
 					if ( ! document.getElementById('downloader-'+imdbCode)) {
-						buttons.innerHTML += '<p class="movie-downloads"><span id="downloader-'+imdbCode+'">&nbsp;'+title+'&nbsp;</span></p>';
+						buttons.innerHTML += '<p class="movie-downloads"><span id="downloader-'+imdbCode+'">&nbsp;<a href="/title/'+imdbCode+'">'+title+'</a>&nbsp;</span></p>';
 					}
 
 					if (filePref != "TorrentMagnetUrl") {
