@@ -7,9 +7,11 @@ var filePref,
 	buttons = document.getElementById('main'),
 	downloadDiv = document.createElement('div');
 	
+buttons = buttons.getElementsByClassName('clear')[0];
 downloadDiv.id = 'download-wrapper';
 downloadDiv.innerHTML = '<p>Fetching download links...</p>';
-$(downloadDiv).insertBefore('#main .clear');
+
+buttons.appendChild(downloadDiv);
 buttons = document.getElementById('download-wrapper');
 
 getPrefs();
