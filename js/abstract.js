@@ -1,8 +1,7 @@
-var buttons,
-	downloadDiv,
-	target,
-	keywords,
+var buttons, downloadDiv, target, keywords,
 	movies = [],
+	movieCount = 0,
+	failCount = 0,
 	url = prefs.proxy,
 	filePref = prefs.filePref,
 	path = window.location.pathname;
@@ -24,35 +23,11 @@ target.appendChild(downloadDiv);
 
 buttons = document.getElementById('download-wrapper');
 
+failCount = keywords.length;
+
 for (var i = 0; i < keywords.length; i++) {
 	getMovie(keywords[i]);
 }
-
-movies.sort(function(a, b){
-	var nameA = a.MovieTitleClean.toLowerCase(),
-		nameB = b.MovieTitleClean.toLowerCase(),
-		qualityA = a.Quality == '3D' ? 'zz' : a.Quality.toLowerCase(),
-		qualityB = b.Quality == '3D' ? 'zz' : b.Quality.toLowerCase();
-
-	if (nameA < nameB) //sort string ascending
-		return -1; 
-	if (nameA > nameB)
-		return 1;
-	if (qualityA > qualityB)
-		return -1;
-	if (qualityA < qualityB)
-		return 1;
-	return 0; //default return value (no sorting)
-});
-
-if (movies.length === 0) {
-	buttons.innerHTML = '<p>No downloads available</p>';
-	return;
-}
-
-$(document).ready(function(){
-	appendMovies(movies);
-});
 
 function getKeyword() {
 	var keyword = window.location.pathname.split('/');
@@ -80,21 +55,30 @@ function getWatchlistIds() {
 
 function getMovie(keyword) {
 	$.ajax({
-		async: false,
+		async: true,
 		type: 'GET',
 		url: 'http://yify.unlocktorrent.com/api/list.json?keywords=' + keyword + '&limit=50',
 		success: function(data) {
 			if (data.MovieCount) {
-				for (var i = 0; i < data.MovieList.length; i++) {
-					movies.push(data.MovieList[i]);
-				}
+				appendMovies(data.MovieList);
+			}
+			else {
+				failCount--;
+			}
+
+			if (failCount === 0) {
+				buttons.innerHTML = '<p>No downloads available</p>';
 			}
 		}
 	});
 }
 
 function appendMovies(movies) {
-	buttons.innerHTML = '';
+	movieCount++;
+	if (movieCount == 1) {
+		buttons.innerHTML = '';
+	}
+	movies = sortMovies(movies);
 	for (var i = 0; i < movies.length; i++) {
 		var download = movies[i].TorrentMagnetUrl,
 			quality = movies[i].Quality,
@@ -113,4 +97,25 @@ function appendMovies(movies) {
 		current = document.getElementById('downloader-'+imdbCode);
 		current.innerHTML = '<a href="'+download+'">'+quality+'</a>' + current.innerHTML;
 	}
+}
+
+function sortMovies(movies) {
+	movies.sort(function(a, b){
+		var nameA = a.MovieTitleClean.toLowerCase(),
+			nameB = b.MovieTitleClean.toLowerCase(),
+			qualityA = a.Quality == '3D' ? 'zz' : a.Quality.toLowerCase(),
+			qualityB = b.Quality == '3D' ? 'zz' : b.Quality.toLowerCase();
+
+		if (nameA < nameB)
+			return -1; 
+		if (nameA > nameB)
+			return 1;
+		if (qualityA > qualityB)
+			return -1;
+		if (qualityA < qualityB)
+			return 1;
+		return 0;
+	});
+
+	return movies;
 }
