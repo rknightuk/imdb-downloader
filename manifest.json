@@ -21,7 +21,7 @@
 			"https://www.imdb.com/user/*/*"
 		],
 		"css": ["download.css"],
-		"js": ["js/jquery.min.js", "js/abstract.js"],
+		"js": ["js/jquery.min.js", "js/background.js"],
 		"run_at" : "document_idle"
 	},{
 		"matches": [
