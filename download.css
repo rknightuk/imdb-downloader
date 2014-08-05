@@ -16,7 +16,7 @@
 	background-color: #f6f6f6;
 	border-radius: 3px;
 	color: #3D3D3D;
-	margin-bottom: 10px;
+	/*margin-bottom: 10px;*/
 }
 
 .movie-downloads span a {
@@ -27,13 +27,25 @@
 
 .movie-downloads span a:last-child {
 	text-decoration: none;
-	padding-right: 0;
 	border-right: none;
 }
 
 .movie-downloads span a:hover { background-color: #d3d3d3; }
 
-.movie-downloads span a:last-child:hover {
-	background-color: #F6F6F6;
+.movie-downloads .title { font-weight: bold; }
+
+.movie-downloads .subtitle-link,
+.movie-downloads .title {
+	margin-left: -5px;
+}
+
+ul[id*='subtitle-list-'] {
+	margin-top: 10px;
+	margin-left: -15px;
+	list-style-type: none;
+}
+
+ul[id*='subtitle-list-'] li a:hover {
+	background: none;
 	text-decoration: underline;
 }

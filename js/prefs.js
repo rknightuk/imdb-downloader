@@ -1,5 +1,10 @@
 var prefs = {};
 
+function showSubtitles(e) {
+	e.preventDefault();
+	$(this).parents().next('ul').toggle('fast');
+}
+
 chrome.storage.sync.get({
 	filePref: 'TorrentMagnetUrl',
 	proxy: true

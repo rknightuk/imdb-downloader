@@ -91,11 +91,23 @@ function appendMovies(movies) {
 		}
 
 		if ( ! document.getElementById('downloader-'+imdbCode)) {
-			buttons.innerHTML += '<p class="movie-downloads"><span id="downloader-'+imdbCode+'">&nbsp;<a href="/title/'+imdbCode+'">'+title+'</a>&nbsp;</span></p>';
+			buttons.innerHTML += '<p class="movie-downloads"><span id="downloader-'+imdbCode+'">&nbsp;<a href="/title/'+imdbCode+'" class="title">'+title+'</a>&nbsp;</span></p>';
 		}
 
 		current = document.getElementById('downloader-'+imdbCode);
 		current.innerHTML = '<a href="'+download+'">'+quality+'</a>' + current.innerHTML;
+	}
+
+	for (i = 0; i < movies.length; i++) {
+		imdbCode2 = movies[i].ImdbCode;
+		check = $('#downloader-'+imdbCode2).find('.subtitle-link');
+
+		if (check.length === 0) {
+			current.innerHTML += '<a class="subtitle-link" href="#">Subtitles</a>';
+			current.innerHTML += '<ul id="subtitle-list-'+imdbCode2+'" class="subtitle-list"></ul>';
+
+			getSubtitles(imdbCode2, current);
+		}
 	}
 }
 
@@ -119,3 +131,29 @@ function sortMovies(movies) {
 
 	return movies;
 }
+
+function getSubtitles(id) {
+	subtitleList = document.getElementById('subtitle-list-'+id);
+	$.ajax({
+		async: true,
+		type: 'GET',
+		url: 'http://rbbl.ws/proxy/json.php?requrl=http://api.ysubs.com/subs/' + id,
+		success: function(data) {
+			data = JSON.parse(data);
+			subs = data.subs[id];
+			langs = Object.keys(subs);
+			for (var i = 0; i < langs.length; i++) {
+				url = 'http://yifysubtitles.com' + subs[langs[i]][0].url;
+				console.log(url);
+				lang = langs[i];
+				lang = lang.charAt(0).toUpperCase() + lang.slice(1);
+				subtitleList.innerHTML += '<li><a href="'+url+'">'+lang+'</a></li>';
+			}
+		}
+	});
+}
+
+$('#download-wrapper').on('click', '.subtitle-link', function(e) {
+	e.preventDefault();
+	$(this).parents().find('.subtitle-list').toggle('fast');
+});
