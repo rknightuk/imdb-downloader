@@ -7,19 +7,18 @@ var buttons, downloadDiv, target, keywords,
 	path = window.location.pathname;
 
 if (path.indexOf('/title') != -1 || path.indexOf('/name') != -1) {
-	target = document.getElementById('maindetails_center_top');
+	target = $('#maindetails_center_top');
 	keywords = [getKeyword()];
 }
 else if (path.indexOf('/watchlist') != -1) {
-	target = document.getElementById('main');
-	target = target.getElementsByClassName('clear')[0];
+	target = $('.faceter.nojs-hidden');
 	keywords = getWatchlistIds();
 }
 
 downloadDiv = document.createElement('div');
 downloadDiv.id = 'download-wrapper';
 downloadDiv.innerHTML = '<p>Fetching download links...</p>';
-target.appendChild(downloadDiv);
+target.append(downloadDiv);
 
 buttons = document.getElementById('download-wrapper');
 
@@ -36,20 +35,11 @@ function getKeyword() {
 
 function getWatchlistIds() {
 	items = document.getElementsByClassName('list_item');
- 
-	var ids = [];
- 
-	for (var i = 0; i < items.length; i++) {
-	    var a = items[i].getElementsByTagName('a');
-	    for (var j = 0; j < a.length; j++) {
-	        var href = a[j].href;
-	        href = href.split('/');
-	        href = href[4];
-	        if (ids.indexOf(href) == -1) {
-				ids.push(href);
-	        }
-	    }
-	}
+ 	
+ 	var ids = $(".lister-list img").map(function() {
+ 	    return $(this).data("tconst");
+ 	}).get();
+
 	return ids;
 }
 
