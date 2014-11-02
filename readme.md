@@ -1,5 +1,7 @@
 # IMDB Download
 
+**No longer working - the YIFY API is dead**
+
 This extension adds download links from YIFY to IMDB movie pages as well as actor, actress, director pages as well as your IMDB watchlist.
 
 Choose between magnet links or torrent files.
