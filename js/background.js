@@ -47,7 +47,7 @@ function getMovie(keyword) {
 	$.ajax({
 		async: true,
 		type: 'GET',
-		url: 'http://yify.unlocktorrent.com/api/list.json?keywords=' + keyword + '&limit=50',
+		url: prefs.proxy+'?keywords=' + keyword + '&limit=50',
 		success: function(data) {
 			if (data.MovieCount) {
 				appendMovies(data.MovieList);
