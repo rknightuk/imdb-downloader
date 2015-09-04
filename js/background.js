@@ -2,8 +2,7 @@ var buttons, downloadDiv, target, keywords,
 	movies = [],
 	movieCount = 0,
 	failCount = 0,
-	url = prefs.proxy,
-	filePref = prefs.filePref,
+	filePref = '',
 	path = window.location.pathname;
 
 if (path.indexOf('/title') != -1 || path.indexOf('/name') != -1) {
@@ -47,7 +46,7 @@ function getMovie(keyword) {
 	$.ajax({
 		async: true,
 		type: 'GET',
-		url: prefs.proxy+'?keywords=' + keyword + '&limit=50',
+		url: 'https://yify.unblockme.net/api/v2/list_movies.json?query_term=' + keyword + '&limit=50',
 		success: function(data) {
 			if (data.MovieCount) {
 				appendMovies(data.MovieList);
