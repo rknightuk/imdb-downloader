@@ -3,7 +3,7 @@
 	"short_name": "Movie Downloader for IMDB",
 	"version": "2.0",
 	"manifest_version": 2,
-	"description": "Movie downloader for Chrome adds torrent links to IMDB movie, actor and wishlist pages. It uses the YIFY api to get torrent file links for each film, and add those to the IMDB page.",
+	"description": "Movie downloader for Chrome adds torrent links to IMDB movie, actor and wishlist pages.",
 	"homepage_url": "http://robblewis.me/projects/movie-downloader-chrome",
 	"browser_action": {
 		"default_icon": {
