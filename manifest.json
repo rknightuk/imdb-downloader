@@ -1,15 +1,14 @@
 {
 	"name": "Movie Downloader for IMDB",
 	"short_name": "Movie Downloader for IMDB",
-	"version": "1.4.3",
+	"version": "2.0",
 	"manifest_version": 2,
 	"description": "Show download links on IMDB movie pages",
 	"homepage_url": "http://robblewis.me/projects/movie-downloader-chrome",
 	"browser_action": {
 		"default_icon": {
 			"19": "icons/icon19.png"
-		},
-		"default_popup": "options/options.html"
+		}
 	},
 	"content_scripts": [{
 		"matches": [
@@ -23,17 +22,6 @@
 		"css": ["download.css"],
 		"js": ["js/jquery.min.js", "js/background.js"],
 		"run_at" : "document_idle"
-	},{
-		"matches": [
-			"http://www.imdb.com/title/*",
-			"https://imdb.com/title/*",
-			"http://www.imdb.com/name/*",
-			"https://imdb.com/name/*",
-			"http://www.imdb.com/user/*/*",
-			"https://www.imdb.com/user/*/*"
-		],
-		"js": ["js/prefs.js"],
-		"run_at" : "document_start"
 	},
 	{
 		"matches": [
