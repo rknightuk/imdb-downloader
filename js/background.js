@@ -2,7 +2,6 @@ var buttons, downloadDiv, target, keywords,
 	movies = [],
 	movieCount = 0,
 	failCount = 0,
-	filePref = '',
 	path = window.location.pathname;
 
 if (path.indexOf('/title') != -1 || path.indexOf('/name') != -1) {
@@ -48,8 +47,8 @@ function getMovie(keyword) {
 		type: 'GET',
 		url: 'https://yify.unblockme.net/api/v2/list_movies.json?query_term=' + keyword + '&limit=50',
 		success: function(data) {
-			if (data.MovieCount) {
-				appendMovies(data.MovieList);
+			if (data.data.movie_count) {
+				appendMovies(data.data.movies);
 			}
 			else {
 				failCount--;
@@ -69,39 +68,32 @@ function appendMovies(movies) {
 	}
 	movies = sortMovies(movies);
 	for (var i = 0; i < movies.length; i++) {
-		var download = movies[i].TorrentMagnetUrl,
-			quality = movies[i].Quality,
-			imdbCode = movies[i].ImdbCode,
-			title = movies[i].MovieTitleClean;
+		for (var j = 0; j < movies[i].torrents.length; j++) {
+			var download = movies[i].torrents[j].url,
+				quality = movies[i].torrents[j].quality,
+				imdbCode = movies[i].imdb_code,
+				title = movies[i].title;
 
-		if (filePref != "TorrentMagnetUrl") {
-			download = movies[i].TorrentUrl;
-			download = download.replace('http://yts.re', 'http://yify.unlocktorrent.com');
+			download = download.replace('https://yts.to', 'https://yify.unblockme.net');
+
+			if ( ! document.getElementById('downloader-'+imdbCode)) {
+				buttons.innerHTML += '<p class="movie-downloads"><span id="downloader-'+imdbCode+'">&nbsp;<a href="/title/'+imdbCode+'">'+title+'</a>&nbsp;</span></p>';
+			}
+
+			current = document.getElementById('downloader-'+imdbCode);
+			current.innerHTML = '<a href="'+download+'">'+quality+'</a>' + current.innerHTML;
 		}
-
-		if ( ! document.getElementById('downloader-'+imdbCode)) {
-			buttons.innerHTML += '<p class="movie-downloads"><span id="downloader-'+imdbCode+'">&nbsp;<a href="/title/'+imdbCode+'">'+title+'</a>&nbsp;</span></p>';
-		}
-
-		current = document.getElementById('downloader-'+imdbCode);
-		current.innerHTML = '<a href="'+download+'">'+quality+'</a>' + current.innerHTML;
 	}
 }
 
 function sortMovies(movies) {
 	movies.sort(function(a, b){
-		var nameA = a.MovieTitleClean.toLowerCase(),
-			nameB = b.MovieTitleClean.toLowerCase(),
-			qualityA = a.Quality == '3D' ? 'zz' : a.Quality.toLowerCase(),
-			qualityB = b.Quality == '3D' ? 'zz' : b.Quality.toLowerCase();
+		var nameA = a.title.toLowerCase(),
+			nameB = b.title.toLowerCase();
 
 		if (nameA < nameB)
 			return -1; 
 		if (nameA > nameB)
-			return 1;
-		if (qualityA > qualityB)
-			return -1;
-		if (qualityA < qualityB)
 			return 1;
 		return 0;
 	});
