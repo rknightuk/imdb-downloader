@@ -7,8 +7,9 @@
 
 		<style>
 			body {
+				background: #eee;
 				color: #202020;
-				font-size: 0.8em;
+				font-size: 1em;
 				font-family: Helvetica,arial,sans-serif;
 			}
 
@@ -19,9 +20,13 @@
 				padding: 0 5px;
 			}
 
-			#version-info {
+			#description {
+				line-height: 1.3em;
+			}
+
+			.info {
+				text-transform: uppercase;
 				font-size: 80%;
-				text-align: right;
 				text-transform: uppercase;
 				font-weight: bold;
 			}
@@ -33,9 +38,19 @@
 		
 		<div id="wrapper">
 
-			<p style="text-align: center;"><strong>IMDB Downloader</strong></p>
+			<h1>IMDB Downloader</h1>
 
-			<p id="version-info"><br>&nbsp;<a target="_blank" href="https://github.com/rmlewisuk/imdb-downloader/releases/latest">view version details</a><br><a target="_blank" href="https://chrome.google.com/webstore/detail/movie-downloader-for-imdb/dinhogfacedcmkmbkidnlcchcoanjgma/reviews">Leave a review</a></p>
+			<p id="description"></p>
+
+			<div class="info">
+				<p>
+					<a id="version-info" target="_blank" href="https://github.com/rmlewisuk/imdb-downloader/releases/latest"></a>
+					 - 
+					<a target="_blank" href="https://chrome.google.com/webstore/detail/movie-downloader-for-imdb/dinhogfacedcmkmbkidnlcchcoanjgma/reviews">Leave a review</a>
+					 - 
+				 	<a href="https://github.com/rmlewisuk/imdb-downloader">View source on GitHub</a>
+				</p>
+			</div>
 		</div>
 
 		<script src="options.js"></script>
