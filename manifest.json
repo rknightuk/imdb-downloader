@@ -1,7 +1,7 @@
 {
 	"name": "Movie Downloader for IMDB",
 	"short_name": "Movie Downloader for IMDB",
-	"version": "2.0",
+	"version": "2.1",
 	"manifest_version": 2,
 	"description": "Movie downloader for Chrome adds torrent links to IMDB movie, actor and wishlist pages.",
 	"homepage_url": "http://robblewis.me/projects/movie-downloader-chrome",
@@ -41,6 +41,7 @@
 		"https://imdb.com/title/*",
 		"http://imdb.com/title/*",
 		"http://robblewis.me/projects/movie-downloader-chrome*",
+		"https://yts.ag/*",
 		"storage"
 	]
 }

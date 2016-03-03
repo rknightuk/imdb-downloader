@@ -4,10 +4,15 @@ var buttons, downloadDiv, target, keywords,
 	failCount = 0,
 	path = window.location.pathname;
 
-if (path.indexOf('/title') != -1 || path.indexOf('/name') != -1) {
-	target = $('#maindetails_center_top');
+if (path.indexOf('/title') != -1) {
+	target = $('.plot_summary_wrapper');
 	keywords = [getKeyword()];
 }
+// Actor pages disabled — Yify no longer returns results by actor ID
+// else if (path.indexOf('/name') != -1) {
+// 	target = $('#maindetails_center_top');
+// 	keywords = [getKeyword()];	
+// }
 else if (path.indexOf('/watchlist') != -1) {
 	target = $('.faceter.nojs-hidden');
 	keywords = getWatchlistIds();
@@ -45,7 +50,7 @@ function getMovie(keyword) {
 	$.ajax({
 		async: true,
 		type: 'GET',
-		url: 'https://yify.unblockme.net/api/v2/list_movies.json?query_term=' + keyword + '&limit=50',
+		url: 'https://yts.ag/api/v2/list_movies.json?query_term=' + keyword + '&limit=50',
 		success: function(data) {
 			if (data.data.movie_count) {
 				appendMovies(data.data.movies);
